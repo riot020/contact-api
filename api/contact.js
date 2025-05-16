@@ -24,7 +24,7 @@ export default async function handler(req, res) {
 
   try {
     const githubResponse = await fetch(
-      'https://raw.githubusercontent.com/riot020/contact-data/main/numbers.txt'
+      'https://raw.githubusercontent.com/riot020/Numbers/refs/heads/master/Numbers.txt'
     );
 
     if (!githubResponse.ok) {
