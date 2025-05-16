@@ -1,11 +1,14 @@
 export default async function handler(req, res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET");
+
   const { niche } = req.query;
 
   if (!niche) {
     return res.status(400).json({ error: "Missing niche" });
   }
 
-  const githubRawUrl = "https://raw.githubusercontent.com/riot020/Numbers/refs/heads/master/Numbers.txt";
+  const githubRawUrl = "https://raw.githubusercontent.com/riot020/Numbers/master/Numbers.txt";
 
   try {
     const response = await fetch(githubRawUrl);
