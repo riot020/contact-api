@@ -1,7 +1,14 @@
 export default async function handler(req, res) {
-  // Always set CORS headers first
+  // Set CORS headers for all responses
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET");
+  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  // Handle preflight request
+  if (req.method === "OPTIONS") {
+    res.status(200).end();
+    return;
+  }
 
   const { niche } = req.query;
 
@@ -38,7 +45,13 @@ export default async function handler(req, res) {
 
     res.status(200).json({ number });
   } catch (err) {
-    // Ensure CORS headers even on error
     res.status(500).json({ error: "Internal server error" });
   }
 }
+
+// Optional Vercel config if you need it
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
